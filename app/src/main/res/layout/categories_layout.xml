@@ -11,12 +11,12 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="20dp"
         android:layout_marginHorizontal="30dp"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textColor="#AA0106"
+        android:textColor="@color/white"
         tools:text="MISHO" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

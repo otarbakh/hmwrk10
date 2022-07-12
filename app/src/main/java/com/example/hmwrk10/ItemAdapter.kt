@@ -3,44 +3,46 @@ package com.example.hmwrk10
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hmwrk10.databinding.CategoriesLayoutBinding
+import com.example.hmwrk10.databinding.ItemLayoutBinding
 
-class ItemAdapter(var itemList: MutableList<ItemData>) : RecyclerView.Adapter<UsersViewHolder>() {
+class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+
+    private val itmeList = mutableListOf<ItemData>()
 
 
-    private lateinit var itemClickListener: (CategoryData, Int) -> Unit
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val binding =
-            CategoriesLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return UsersViewHolder(binding)
+            ItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemViewHolder(binding)
     }
 
 
-    fun setOnDeleteClickListener(clickListener: (CategoryData,Int) -> Unit) {
-        this.itemClickListener = clickListener
+
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+
+        holder.itemsData(itmeList[position])
+
+
     }
 
-
-    override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
-
-//        val user = usersList[position]
-//        holder.binding.tvEmail.text = user.email
-//        holder.binding.tvLastname.text = user.lastName
-//        holder.binding.tvFirstname.text = user.firstName
-
-
+    fun updateItem(list: List<ItemData>) {
+        itmeList.clear()
+        itmeList.addAll(list)
+        notifyItemRangeChanged(0, itmeList.size)
     }
 
     override fun getItemCount(): Int {
-        return itemList.size
+        return itmeList.size
     }
-}
+
+    inner class ItemViewHolder(val binding: ItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun itemsData(itemData: ItemData) {
+            binding.tvTitle.text = itemData.title
+            binding.tvPrice.text = itemData.price.toString()
+            binding.ivImage.setImageResource(itemData.image)
 
 
-
-
-class UsersViewHolder(val binding: CategoriesLayoutBinding) :
-    RecyclerView.ViewHolder(binding.root) {
-
+        }
+    }
 }
